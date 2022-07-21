@@ -118,182 +118,194 @@ int main()
     printf("Enter epsilon value\n");
     scanf("%lf", &eps);
     // calculation
-    power();
-    printf("Case is: %d\n", Case);
-    if(Case == 1)
+    for(int i = 0; i < n; i++)
     {
-        printf("Number of steps is: %d\n", step);
-        double eVector[1][10];
-        for(int i = 0; i < n; i++)
+
+        power();
+        printf("Case is: %d\n", Case);
+        if(Case == 1)
         {
-            eVector[0][i] = B[step][i];
-        }
-        printf("\nThe eigenvector is:\n");
-        for(int i = 0; i < n; i++)
-        {
-            printf("%.15lf\n", eVector[0][i]);
-        }
-        printf("\n");
-        double AV[1][10], transpose_eVector[10][1], V_TAV[10][1], V_TV[1][1];
-        for(int i = 0; i < n; i++)
-        {
-            AV[0][i] = 0;
-            for(int j = 0; j < n; j++)
-            {
-                AV[0][i] = AV[0][i] + A[i][j] * eVector[0][j];
-            }
-        }
-        for(int i = 0; i < n; i++)
-        {
-            transpose_eVector[i][0] = eVector[0][i];
-        }
-        for(int i = 0; i < n; i++)
-        {
-            V_TAV[i][0] = 0;
-            for(int j = 0; j < n; j++)
-            {
-                V_TAV[i][0] = V_TAV[i][0] + transpose_eVector[j][0] * AV[0][j];
-            }
-        }
-        for(int i = 0; i < n; i++)
-        {
-            V_TV[0][0] = V_TV[0][0] + transpose_eVector[i][0] * eVector[0][i];
-        }
-        printf("The eigenvalue is: %.15lf\n", V_TAV[0][0] / V_TV[0][0]);
-    }
-    if(Case == 3)
-    {
-        printf("Number of steps is: %d\n", step);
-        double V[1][10], AV[1][10], A1V[1][10], A2V[1][10];
-        for(int i = 0; i < n; i++)
-        {
-            V[0][i] = B[step][i];
-        }
-        for(int i = 0; i < n; i++)
-        {
-            AV[0][i] = 0;
-            for(int j = 0; j < n; j++)
-            {
-                AV[0][i] = AV[0][i] + A[i][j] * V[0][j];
-            }
-        }
-        for(int i = 0; i < n; i++)
-        {
-            A1V[0][i] = 0;
-            for(int j = 0; j < n; j++)
-            {
-                A1V[0][i] = A1V[0][i] + A[i][j] * AV[0][j];
-            }
-        }
-        for(int i = 0; i < n; i++)
-        {
-            A2V[0][i] = 0;
-            for(int j = 0; j < n; j++)
-            {
-                A2V[0][i] = A2V[0][i] + A[j][i] * A1V[0][j];
-            }
-        }
-        printf("\n");
-        double eValue = sqrt((max(A2V) /  max(AV)));
-        printf("The eigenvalues are: %.15lf\t%.15lf\n", eValue, -eValue);
-        double eVector1[1][10], eVector2[1][10];
-        for(int i = 0; i < n; i++)
-        {
-            eVector1[0][i] = A1V[0][i] + eValue * AV[0][i];
-        }
-        for(int i = 0; i < n; i++)
-        {
-            eVector2[0][i] = A1V[0][i] - eValue * AV[0][i];
-        }
-        double maxE1 = max(eVector1);
-        double maxE2 = max(eVector2);
-        for(int i = 0; i < n; i++)
-        {
-            eVector1[0][i] = eVector1[0][i] / maxE1 + 0;
-        }
-        for(int i = 0; i < n; i++)
-        {
-            eVector2[0][i] = eVector2[0][i] / maxE2 + 0;
-        }
-        printf("\nThe eigenvector is:\n");
-        for(int i = 0; i < n; i++)
-        {
-            printf("%.15lf\n", eVector1[0][i]);
-        }
-        printf("\n");
-        for(int i = 0; i < n; i++)
-        {
-            printf("%.15lf\n", eVector2[0][i]);
-        }
-    }
-    if(Case == 4)
-    {
-        double V[1][10], AV[1][10], A1V[1][10];
-        for(int i = 0; i < n; i++)
-        {
-            V[0][i] = B[step][i];
-        }
-        for(int i = 0; i < n; i++)
-        {
-            AV[0][i] = 0;
-            for(int j = 0; j < n; j++)
-            {
-                AV[0][i] = AV[0][i] + A[i][j] * V[0][j];
-            }
-        }
-        for(int i = 0; i < n; i++)
-        {
-            A1V[0][i] = 0;
-            for(int j = 0; j < n; j++)
-            {
-                A1V[0][i] = A1V[0][i] + A[i][j] * AV[0][j];
-            }
-        }
-        double a1 = A1V[0][0];
-        double a2 = A1V[0][1];
-        double b1 = AV[0][0];
-        double b2 = AV[0][1];
-        double c1 = V[0][0];
-        double c2 = V[0][1];
-        double a = 1;
-        double b = (a1 * c2 - c1 * a2) / (c1 * b2 - b1 * c2);
-        double c = (a2 * b1 - a1 * b2) / (c1 * b2 - b1 * c2);
-        printf("\n");
-        printf("Expression: z^2 + %lfz + %lf = 0\n",b, c);
-        double delta = b * b - 4 * a * c;
-        if(delta >= 0)
-        {
-            printf("Delta is bigger than 0\n");
-        }
-        else
-        {
-            double real_eValue = - b / (2 * a);
-            double im_eValue = sqrt(-delta) / (2 * a);
-            double eValue1[1][2];
-            eValue1[0][0] = real_eValue;
-            eValue1[0][1] = im_eValue;
-            double eValue2[1][2];
-            eValue2[0][0] = real_eValue;
-            eValue2[0][1] = - im_eValue;
-            printf("The first eigenvalue is: %lf + %lfi\n", eValue1[0][0], eValue1[0][1]);
-            printf("The second eigenvalue is: %lf %lfi\n", eValue2[0][0], eValue2[0][1]);
-            double eVectorReal[1][10], eVector1Im[1][10], eVector2Im[1][10];
+            printf("Number of steps is: %d\n", step);
+            double eVector[1][10];
             for(int i = 0; i < n; i++)
             {
-                eVectorReal[0][i] = A1V[0][i] + eValue1[0][0] * AV[0][i];
-                eVector1Im[0][i] = A1V[0][i] + eValue1[0][1] * AV[0][i];
-                eVector2Im[0][i] = A1V[0][i] + eValue2[0][1] * AV[0][i];
+                eVector[0][i] = B[step][i];
             }
-            printf("\nThe first eigenvector is:\n");
+            printf("\nThe eigenvector is:\n");
             for(int i = 0; i < n; i++)
             {
-                printf("%lf + %lf\n", eVectorReal[0][i], eVector1Im[0][i]);
+                printf("%.15lf\n", eVector[0][i]);
             }
             printf("\n");
-            printf("The second eigenvector is:\n");
+            double AV[1][10], transpose_eVector[10][1], V_TAV[10][1], V_TV[1][1];
             for(int i = 0; i < n; i++)
             {
-                printf("%lf %lf\n", eVectorReal[0][i], eVector2Im[0][i]);
+                AV[0][i] = 0;
+                for(int j = 0; j < n; j++)
+                {
+                    AV[0][i] = AV[0][i] + A[i][j] * eVector[0][j];
+                }
+            }
+            for(int i = 0; i < n; i++)
+            {
+                transpose_eVector[i][0] = eVector[0][i];
+            }
+            for(int i = 0; i < n; i++)
+            {
+                V_TAV[i][0] = 0;
+                for(int j = 0; j < n; j++)
+                {
+                    V_TAV[i][0] = V_TAV[i][0] + transpose_eVector[j][0] * AV[0][j];
+                }
+            }
+            for(int i = 0; i < n; i++)
+            {
+                V_TV[0][0] = V_TV[0][0] + transpose_eVector[i][0] * eVector[0][i];
+            }
+            printf("The eigenvalue is: %.15lf\n", V_TAV[0][0] / V_TV[0][0]);
+        }
+        if(Case == 3)
+        {
+            printf("Number of steps is: %d\n", step);
+            double V[1][10], AV[1][10], A1V[1][10], A2V[1][10];
+            for(int i = 0; i < n; i++)
+            {
+                V[0][i] = B[step][i];
+            }
+            for(int i = 0; i < n; i++)
+            {
+                AV[0][i] = 0;
+                for(int j = 0; j < n; j++)
+                {
+                    AV[0][i] = AV[0][i] + A[i][j] * V[0][j];
+                }
+            }
+            for(int i = 0; i < n; i++)
+            {
+                A1V[0][i] = 0;
+                for(int j = 0; j < n; j++)
+                {
+                    A1V[0][i] = A1V[0][i] + A[i][j] * AV[0][j];
+                }
+            }
+            for(int i = 0; i < n; i++)
+            {
+                A2V[0][i] = 0;
+                for(int j = 0; j < n; j++)
+                {
+                    A2V[0][i] = A2V[0][i] + A[j][i] * A1V[0][j];
+                }
+            }
+            printf("\n");
+            double eValue = sqrt((max(A2V) /  max(AV)));
+            printf("The eigenvalues are: %.15lf\t%.15lf\n", eValue, -eValue);
+            double eVector1[1][10], eVector2[1][10];
+            for(int i = 0; i < n; i++)
+            {
+                eVector1[0][i] = A1V[0][i] + eValue * AV[0][i];
+            }
+            for(int i = 0; i < n; i++)
+            {
+                eVector2[0][i] = A1V[0][i] - eValue * AV[0][i];
+            }
+            double maxE1 = max(eVector1);
+            double maxE2 = max(eVector2);
+            for(int i = 0; i < n; i++)
+            {
+                eVector1[0][i] = eVector1[0][i] / maxE1 + 0;
+            }
+            for(int i = 0; i < n; i++)
+            {
+                eVector2[0][i] = eVector2[0][i] / maxE2 + 0;
+            }
+            printf("\nThe eigenvector is:\n");
+            for(int i = 0; i < n; i++)
+            {
+                printf("%.15lf\n", eVector1[0][i]);
+            }
+            printf("\n");
+            for(int i = 0; i < n; i++)
+            {
+                printf("%.15lf\n", eVector2[0][i]);
+            }
+        }
+        if(Case == 4)
+        {
+            double V[1][10], AV[1][10], A1V[1][10];
+            for(int i = 0; i < n; i++)
+            {
+                V[0][i] = B[step][i];
+            }
+            for(int i = 0; i < n; i++)
+            {
+                printf("%lf\n", V[0][i]);
+            }
+            printf("\n");
+            for(int i = 0; i < n; i++)
+            {
+                AV[0][i] = 0;
+                for(int j = 0; j < n; j++)
+                {
+                    AV[0][i] = AV[0][i] + A[i][j] * V[0][j];
+                }
+            }
+            for(int i = 0; i < n; i++)
+            {
+                printf("%lf\n", AV[0][i]);
+            }
+            printf("\n");
+            for(int i = 0; i < n; i++)
+            { 
+                A1V[0][i] = 0;
+                for(int j = 0; j < n; j++)
+                {
+                    A1V[0][i] = A1V[0][i] + A[i][j] * AV[0][j];
+                }
+            }
+            for(int i = 0; i < n; i++)
+            {
+                printf("%lf\n", A1V[0][i]);
+            }
+            printf("\n");
+            double a1 = A1V[0][0];
+            double a2 = A1V[0][1];
+            double b1 = AV[0][0];
+            double b2 = AV[0][1];
+            double c1 = V[0][0];
+            double c2 = V[0][1];
+            double a = 1;
+            double b = (a1 * c2 - c1 * a2) / (c1 * b2 - b1 * c2);
+            double c = (a2 * b1 - a1 * b2) / (c1 * b2 - b1 * c2);
+            printf("\n");
+            printf("Expression: z^2 + %lfz + %lf = 0\n",b, c);
+            double delta = b * b - 4 * a * c;
+            if(delta >= 0)
+            {
+                printf("Delta is bigger than 0\n");
+            }
+            else
+            {
+                double real_eValue = - b / (2 * a);
+                double im_eValue = sqrt(-delta) / (2 * a);
+                printf("The first eigenvalue is: %lf + %lfi\n", real_eValue, im_eValue);
+                printf("The second eigenvalue is: %lf %lfi\n", real_eValue, -im_eValue);
+                double eVectorReal[1][10], eVectorIm[1][10];
+                for(int i = 0; i < n; i++)
+                {
+                    eVectorReal[0][i] = A1V[0][i] - real_eValue * AV[0][i];
+                    eVectorIm[0][i] = 0 - im_eValue * AV[0][i];
+                }
+                printf("\nThe first eigenvector is:\n");
+                for(int i = 0; i < n; i++)
+                {
+                    printf("%lf + %lfi\n", eVectorReal[0][i], eVectorIm[0][i]);
+                }
+                printf("\n");
+                printf("The second eigenvector is:\n");
+                for(int i = 0; i < n; i++)
+                {
+                    printf("%lf + %lfi\n", eVectorReal[0][i], -eVectorIm[0][i]);
+                }
             }
         }
     }

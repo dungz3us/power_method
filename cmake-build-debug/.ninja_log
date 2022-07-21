@@ -1,0 +1,7 @@
+# ninja log v5
+0	302	6801220657182635	CMakeFiles/power_method.dir/main.c.obj	894a559c1aa6428c
+303	487	6801220659007758	power_method.exe	c836711a048e737c
+2	79	6801222954779286	CMakeFiles/power_method.dir/main.c.obj	894a559c1aa6428c
+79	156	6801222955537258	power_method.exe	c836711a048e737c
+2	76	6801225351187088	CMakeFiles/power_method.dir/main.c.obj	894a559c1aa6428c
+76	150	6801225351905174	power_method.exe	c836711a048e737c
